@@ -13,6 +13,7 @@ from six.moves import range
 import os
 import threading
 import warnings
+import random
 
 from .. import backend as K
 
@@ -211,6 +212,7 @@ class ImageDataGenerator(object):
         samplewise_std_normalization: divide each input by its std.
         zca_whitening: apply ZCA whitening.
         rotation_range: degrees (0 to 180).
+        rotation_step: degrees (0 to 180).
         width_shift_range: fraction of total width.
         height_shift_range: fraction of total height.
         shear_range: shear intensity (shear angle in radians).
@@ -245,6 +247,7 @@ class ImageDataGenerator(object):
                  samplewise_std_normalization=False,
                  zca_whitening=False,
                  rotation_range=0.,
+                 rotation_step=0.,
                  width_shift_range=0.,
                  height_shift_range=0.,
                  shear_range=0.,
@@ -360,7 +363,10 @@ class ImageDataGenerator(object):
 
         # use composition of homographies to generate final transform that needs to be applied
         if self.rotation_range:
-            theta = np.pi / 180 * np.random.uniform(-self.rotation_range, self.rotation_range)
+            if self.rotation_step == 0:
+                theta = np.pi / 180 * np.random.uniform(-self.rotation_range, self.rotation_range)
+            else:
+                theta = np.pi / 180 * random.choice(range(-self.rotation_range, self.rotation_range, self.rotation_step))
         else:
             theta = 0
         rotation_matrix = np.array([[np.cos(theta), -np.sin(theta), 0],

@@ -8,6 +8,7 @@ keras.preprocessing.image.ImageDataGenerator(featurewise_center=False,
     samplewise_std_normalization=False,
     zca_whitening=False,
     rotation_range=0.,
+    rotation_step=0.,
     width_shift_range=0.,
     height_shift_range=0.,
     shear_range=0.,
@@ -30,6 +31,7 @@ Generate batches of tensor image data with real-time data augmentation. The data
     - __samplewise_std_normalization__: Boolean. Divide each input by its std.
     - __zca_whitening__: Boolean. Apply ZCA whitening.
     - __rotation_range__: Int. Degree range for random rotations.
+    - __rotation_step__: Int. Minimal degree step to use for random rotations.
     - __width_shift_range__: Float (fraction of total width). Range for random horizontal shifts.
     - __height_shift_range__: Float (fraction of total height). Range for random vertical shifts.
     - __shear_range__: Float. Shear Intensity (Shear angle in counter-clockwise direction as radians)
